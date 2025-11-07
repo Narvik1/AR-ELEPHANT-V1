@@ -88,32 +88,36 @@
 
 <!-- SCENE -->
 <a-scene
-  webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #ui-root"
-  xr-mode-ui="enabled: false"
-  renderer="colorManagement: true; physicallyCorrectLights: true;"
   embedded
+  renderer="logarithmicDepthBuffer: true;"
+  vr-mode-ui="enabled: false"
+  arjs="sourceType: webcam; debugUIEnabled: false;"
 >
-  <!-- Camera -->
+  <!-- Kamera AR.js -->
   <a-entity camera></a-entity>
 
-  <!-- Reticle -->
-  <a-entity id="reticle" hit-test="target:#modelRoot" visible="false">
-    <a-ring color="#00FFAA" radius-inner="0.03" radius-outer="0.05" rotation="-90 0 0"></a-ring>
-  </a-entity>
+  <!-- Marker -->
+  <a-marker type="pattern" url="assets/markers/elephant_marker.patt">
 
-  <!-- Model container -->
-  <a-entity id="modelRoot" visible="false">
-    <a-entity id="layer_body" gltf-model="assets/models/gajah.glb"></a-entity>
-    <a-entity id="layer_skeleton" gltf-model="assets/models/tulang_gajah.glb" visible="false"></a-entity>
+    <!-- Root semua model -->
+    <a-entity id="modelRoot" position="0 0 0" scale="0.5 0.5 0.5">
 
-    <a-entity id="layer_organs" visible="false">
-      <a-entity id="organ_heart" gltf-model="assets/models/jantung.glb"></a-entity>
+      <!-- Tubuh -->
+      <a-entity id="layer_body" gltf-model="assets/models/gajah.glb" visible="true"></a-entity>
+
+      <!-- Tulang -->
+      <a-entity id="layer_skeleton" gltf-model="assets/models/tulang_gajah.glb" visible="false"></a-entity>
+
+      <!-- Organ -->
+      <a-entity id="layer_organs" visible="false">
+        <a-entity id="organ_heart" gltf-model="assets/models/jantung.glb" position="0 0.4 0"></a-entity>
+      </a-entity>
+
     </a-entity>
-  </a-entity>
 
-  <a-entity light="type: ambient; intensity: 0.9"></a-entity>
-  <a-entity light="type: directional; intensity: 0.6" position="1 1 0"></a-entity>
+  </a-marker>
 </a-scene>
+
 
 <script src="src/app.js"></script>
 </body>
