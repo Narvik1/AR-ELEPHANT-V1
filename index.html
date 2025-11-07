@@ -2,67 +2,73 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <title>AR Anatomi Gajah - Demo</title>
+  <title>AR Anatomi Gajah - Marker Based</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
-  <!-- A-FRAME -->
+  <!-- A-FRAME & AR.js -->
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://rawcdn.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
   <style>
-    body, html { margin:0; padding:0; background:#eef7ef; }
-    #ui-root { position:absolute; inset:0; pointer-events:none; display:flex; justify-content:space-between; flex-direction:column; z-index:10; }
-    .panel { background:rgba(255,255,255,0.92); padding:8px; border-radius:10px; box-shadow:0 6px 16px rgba(0,0,0,0.14); pointer-events:auto; }
-    .btn { background:#5dbb8c; border:none; color:#fff; padding:8px 12px; border-radius:8px; font-weight:600; cursor:pointer; }
-    .mode-btn { background:#5dbb8c; color:#fff; padding:6px 10px; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
+    body, html { margin:0; padding:0; }
+    #ui-root {
+      position:absolute; top:0; left:0; width:100%;
+      display:flex; justify-content:space-between; padding:10px;
+      pointer-events:none; z-index:10;
+    }
+    .panel { 
+      background:rgba(255,255,255,0.92);
+      padding:8px; border-radius:10px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.15);
+      pointer-events:auto;
+      display:flex; gap:6px;
+    }
+    .mode-btn { 
+      background:#5dbb8c; color:#fff; border:none;
+      padding:6px 10px; border-radius:8px;
+      cursor:pointer; font-weight:600;
+    }
   </style>
 </head>
 
 <body>
 
+<!-- UI BUTTONS -->
 <div id="ui-root">
-  <div style="display:flex;justify-content:space-between; padding:10px;">
-    <div class="panel" style="display:flex; gap:6px;">
-      <button id="btnBody" class="mode-btn">Tubuh</button>
-      <button id="btnSkeleton" class="mode-btn">Tulang</button>
-      <button id="btnOrgans" class="mode-btn">Organ</button>
-    </div>
-
-    <div class="panel">
-      <button id="enterBtn" class="btn">Enter AR</button>
-      <a-enter-vr id="arButton" style="display:none;"></a-enter-vr>
-    </div>
+  <div class="panel">
+    <button id="btnBody" class="mode-btn">Tubuh</button>
+    <button id="btnSkeleton" class="mode-btn">Tulang</button>
+    <button id="btnOrgans" class="mode-btn">Organ</button>
   </div>
 </div>
 
+<!-- AR SCENE -->
 <a-scene
-    vr-mode-ui="enabled: false"
-    webxr="requiredFeatures: hit-test; optionalFeatures: local-floor;"
-    renderer="colorManagement: true; physicallyCorrectLights: true"
-    embedded
+  embedded
+  renderer="colorManagement: true; physicallyCorrectLights: true"
+  arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;"
 >
 
-  <a-entity camera position="0 1.6 0"></a-entity>
+  <!-- Camera -->
+  <a-entity camera></a-entity>
 
-  <!-- Reticle -->
-  <a-entity id="reticle"
-    hit-test="target:#modelRoot;"
-    geometry="primitive:ring; radiusInner:0.04; radiusOuter:0.06"
-    material="color:#0f0; shader:flat"
-    rotation="-90 0 0"
-    visible="false">
-  </a-entity>
+  <!-- Marker -->
+  <a-marker preset="hiro" id="marker">
 
-  <!-- Model Root -->
-  <a-entity id="modelRoot" position="0 0 -0.5" scale="1 1 1" visible="false">
-    <a-entity id="layer_body" gltf-model="assets/models/gajah.glb" visible="true"></a-entity>
-    <a-entity id="layer_skeleton" gltf-model="assets/models/tulang_gajah.glb" visible="false"></a-entity>
-    <a-entity id="layer_organs" visible="false">
-      <a-entity id="organ_heart" gltf-model="assets/models/jantung.glb"></a-entity>
+    <!-- Model Root -->
+    <a-entity id="modelRoot" scale="0.8 0.8 0.8" rotation="0 0 0" position="0 0 0">
+      <a-entity id="layer_body" gltf-model="assets/models/gajah.glb" visible="true"></a-entity>
+      <a-entity id="layer_skeleton" gltf-model="assets/models/tulang_gajah.glb" visible="false"></a-entity>
+      <a-entity id="layer_organs" visible="false">
+        <a-entity id="organ_heart" gltf-model="assets/models/jantung.glb"></a-entity>
+      </a-entity>
     </a-entity>
-  </a-entity>
 
-  <a-entity light="type: ambient; intensity: 1.0"></a-entity>
-  <a-entity light="type: directional; intensity: 0.6" position="1 2 1"></a-entity>
+  </a-marker>
+
+  <!-- Lighting -->
+  <a-entity light="type: ambient; intensity: 1"></a-entity>
+  <a-entity light="type: directional; intensity: 0.8" position="1 2 1"></a-entity>
 
 </a-scene>
 
