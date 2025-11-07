@@ -2,126 +2,69 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <title>AR Anatomi Gajah</title>
+  <title>AR Anatomi Gajah - Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
-  <!-- A-Frame Core -->
+  <!-- A-FRAME -->
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
-  <!-- A-Frame WebXR Hit-Test Component (Wajib untuk Tap-to-Place) -->
-  <script src="https://cdn.jsdelivr.net/npm/aframe-hit-test-component@1.0.0/dist/aframe-hit-test-component.min.js"></script>
-<<<<<<< HEAD
-    <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.1.0/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-ar-hit-test@1.1.0/dist/aframe-ar-hit-test.js"></script>
-=======
->>>>>>> a0f7d9aa20c7e7414622ad5d1aab844e48b01684
-
   <style>
-    /* Canvas behind UI */
-    a-scene, a-scene canvas {
-      position: fixed !important;
-      inset: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      background: transparent !important;
-      z-index: 0;
-    }
-
-    :root{
-      --accent:#9ED2A1;
-      --accent-dark:#2fae6e;
-      --panel-bg: rgba(255,255,255,0.95);
-      --shadow: 0 6px 18px rgba(0,0,0,0.12);
-      font-family: Inter, system-ui;
-    }
-    body,html{margin:0;background:#eef7ef;}
-
-    #ui-root{
-      position:fixed; inset:0;
-      display:flex; flex-direction:column; justify-content:space-between;
-      pointer-events:none; z-index:10;
-    }
-    .panel{background:var(--panel-bg); padding:8px; border-radius:12px; box-shadow:var(--shadow); pointer-events:auto;}
-    .btn{background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:10px;font-weight:600;cursor:pointer;}
-    .mode-btn{background:linear-gradient(180deg,var(--accent),var(--accent-dark));color:#fff;border:none;padding:8px 14px;border-radius:10px;font-weight:700;cursor:pointer;}
-    .btn-ghost{background:transparent;border:1px solid #ccc;padding:8px 14px;border-radius:10px;cursor:pointer;}
-
-    #tooltip{position:absolute;display:none;min-width:180px;max-width:300px;}
-    #detailModal{position:absolute;display:none;left:50%;transform:translateX(-50%);bottom:20px;width:90%;max-width:340px;}
+    body, html { margin:0; padding:0; background:#eef7ef; }
+    #ui-root { position:absolute; inset:0; pointer-events:none; display:flex; justify-content:space-between; flex-direction:column; z-index:10; }
+    .panel { background:rgba(255,255,255,0.92); padding:8px; border-radius:10px; box-shadow:0 6px 16px rgba(0,0,0,0.14); pointer-events:auto; }
+    .btn { background:#5dbb8c; border:none; color:#fff; padding:8px 12px; border-radius:8px; font-weight:600; cursor:pointer; }
+    .mode-btn { background:#5dbb8c; color:#fff; padding:6px 10px; border:none; border-radius:8px; cursor:pointer; font-weight:600; }
   </style>
 </head>
 
 <body>
 
-<!-- UI Overlay -->
 <div id="ui-root">
-  <div style="padding:12px; display:flex; justify-content:space-between;">
-    <div class="panel" style="display:flex; gap:8px;">
+  <div style="display:flex;justify-content:space-between; padding:10px;">
+    <div class="panel" style="display:flex; gap:6px;">
       <button id="btnBody" class="mode-btn">Tubuh</button>
       <button id="btnSkeleton" class="mode-btn">Tulang</button>
       <button id="btnOrgans" class="mode-btn">Organ</button>
     </div>
+
     <div class="panel">
       <button id="enterBtn" class="btn">Enter AR</button>
-    </div>
-  </div>
-
-  <div id="tooltip" class="panel"></div>
-
-  <div style="display:flex; justify-content:center; margin-bottom:20px;">
-    <div id="placeBtn" class="panel" style="display:none;">
-      <button id="placeModel" class="btn">Place Model</button>
-    </div>
-  </div>
-
-  <div style="display:flex; justify-content:center; padding-bottom:20px;">
-    <div id="controls" class="panel" style="display:none; display:flex; gap:12px;">
-      <div>
-        <div>Scale</div>
-        <input id="scaleRange" type="range" min="0.3" max="2.0" step="0.01" value="1">
-      </div>
-      <div>
-        <div>Rotate</div>
-        <input id="rotateRange" type="range" min="0" max="360" step="1" value="0">
-      </div>
-      <button id="toggleSkeletonSmall" class="btn-ghost">Toggle Skeleton</button>
+      <a-enter-vr id="arButton" style="display:none;"></a-enter-vr>
     </div>
   </div>
 </div>
 
-<div id="detailModal" class="panel"></div>
-
-<!-- SCENE -->
 <a-scene
-  webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #ui-root"
-  xr-mode-ui="enabled: false"
-  renderer="colorManagement: true; physicallyCorrectLights: true;"
-  embedded
+    vr-mode-ui="enabled: false"
+    webxr="mode: immersive-ar; requiredFeatures: hit-test;"
+    renderer="colorManagement: true; physicallyCorrectLights: true"
+    embedded
 >
-  <!-- Camera -->
-  <a-entity camera></a-entity>
+  <a-entity camera position="0 1.6 0"></a-entity>
 
   <!-- Reticle -->
-  <a-entity id="reticle" hit-test="target:#modelRoot" visible="false">
-    <a-ring color="#00FFAA" radius-inner="0.03" radius-outer="0.05" rotation="-90 0 0"></a-ring>
+  <a-entity id="reticle"
+    hit-test="target:#modelRoot;"
+    geometry="primitive:ring; radiusInner:0.04; radiusOuter:0.06"
+    material="color:#0f0; shader:flat"
+    rotation="-90 0 0"
+    visible="false">
   </a-entity>
 
-  <!-- Model container -->
-  <a-entity id="modelRoot" visible="false">
-    <a-entity id="layer_body" gltf-model="assets/models/gajah.glb"></a-entity>
+  <!-- Model Root -->
+  <a-entity id="modelRoot" position="0 0 -0.5" scale="1 1 1" visible="false">
+    <a-entity id="layer_body" gltf-model="assets/models/gajah.glb" visible="true"></a-entity>
     <a-entity id="layer_skeleton" gltf-model="assets/models/tulang_gajah.glb" visible="false"></a-entity>
-
     <a-entity id="layer_organs" visible="false">
       <a-entity id="organ_heart" gltf-model="assets/models/jantung.glb"></a-entity>
     </a-entity>
   </a-entity>
 
-  <a-entity light="type: ambient; intensity: 0.9"></a-entity>
-  <a-entity light="type: directional; intensity: 0.6" position="1 1 0"></a-entity>
+  <a-entity light="type: ambient; intensity: 1.0"></a-entity>
+  <a-entity light="type: directional; intensity: 0.6" position="1 2 1"></a-entity>
+
 </a-scene>
 
 <script src="src/app.js"></script>
-
 </body>
 </html>
