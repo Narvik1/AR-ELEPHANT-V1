@@ -124,23 +124,27 @@
   }
 
   // Place model
-  placeModelBtn.addEventListener('click', () => {
-    if (!reticle.object3D.visible) return alert('Permukaan belum terdeteksi. Gerakkan perangkat pelan-pelan.');
-    anchorPose = {
-      transform: {
-        position: {
-          x: reticle.object3D.position.x,
-          y: reticle.object3D.position.y,
-          z: reticle.object3D.position.z
-        },
-        orientation: {
-          x: reticle.object3D.quaternion.x,
-          y: reticle.object3D.quaternion.y,
-          z: reticle.object3D.quaternion.z,
-          w: reticle.object3D.quaternion.w
-        }
-      }
-    };
+    placeModelBtn.addEventListener('click', () => {
+    const ret = document.querySelector('#reticle');
+
+    if (!ret.object3D.visible) {
+        alert('Arahkan kamera ke lantai/permukaan sampai reticle muncul.');
+        return;
+    }
+
+    // Ambil posisi & rotasi reticle
+    modelRoot.object3D.position.copy(ret.object3D.position);
+    modelRoot.object3D.quaternion.copy(ret.object3D.quaternion);
+
+    // Tampilkan model
+    modelRoot.setAttribute('visible', true);
+
+    // Sembunyikan reticle setelah penempatan
+    ret.object3D.visible = false;
+
+    // Tampilkan slider controls
+    controlsWrap.style.display = 'flex';
+
     modelRoot.object3D.position.copy(reticle.object3D.position);
     modelRoot.object3D.quaternion.copy(reticle.object3D.quaternion);
     modelRoot.setAttribute('visible', true);
