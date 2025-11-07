@@ -5,7 +5,17 @@
   <title>AR Anatomi Gajah - Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-xr@1.3.0/dist/aframe-xr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@webxr-input-profiles/motion-controllers@1.0.0/dist/motion-controllers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/webxr/ARButton.js"></script>
   <style>
+    a-scene, a-scene canvas {
+    position: fixed !important;
+    top: 0; left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 0;
+    }
     :root{
       --accent:#9ED2A1; /* hijau pastel */
       --accent-dark:#2fae6e;
@@ -17,7 +27,7 @@
     }
     html,body { margin:0; height:100%; background:#eef7ef; }
     /* UI layer */
-    #ui-root{ position: absolute; inset:0; pointer-events:none; display:flex; flex-direction:column; justify-content:space-between; }
+    #ui-root{ position: absolute; inset:0; pointer-events:none; display:flex; flex-direction:column; justify-content:space-between; z-index: 10;}
     .topbar { display:flex; justify-content:flex-end; gap:10px; padding:12px; pointer-events:auto; }
     .panel { background:var(--panel-bg); border-radius:var(--radius); box-shadow:var(--shadow); padding:8px; pointer-events:auto; }
     .btn { background:var(--accent); border:none; color:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:600; }
@@ -38,6 +48,11 @@
     }
   </style>
 </head>
+<script>
+if (navigator.xr === undefined) {
+  alert("Browser ini tidak mendukung WebXR. Gunakan Chrome Android versi terbaru.");
+}
+</script>
 <body>
   <div id="ui-root">
     <div class="topbar" style="justify-content:space-between;">
@@ -87,7 +102,13 @@
   <div id="detailModal" class="panel"></div>
 
   <!-- A-Frame scene -->
-  <a-scene embedded vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true" xrweb>
+  <a-scene
+  renderer="antialias: true; colorManagement: true; physicallyCorrectLights: true;"
+  vr-mode-ui="enabled: false"
+  webxr="mode: immersive-ar; requiredFeatures: hit-test; optionalFeatures: local-floor"
+  embedded
+  device-orientation-permission-ui="enabled: true"
+>
     <a-entity id="camera" camera position="0 1.6 0"></a-entity>
 
     <!-- Reticle -->
