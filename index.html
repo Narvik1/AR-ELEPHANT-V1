@@ -36,10 +36,11 @@
 
 <a-scene
     vr-mode-ui="enabled: false"
-    webxr="mode: immersive-ar; requiredFeatures: hit-test;"
+    webxr="requiredFeatures: hit-test; optionalFeatures: local-floor;"
     renderer="colorManagement: true; physicallyCorrectLights: true"
     embedded
 >
+
   <a-entity camera position="0 1.6 0"></a-entity>
 
   <!-- Reticle -->
