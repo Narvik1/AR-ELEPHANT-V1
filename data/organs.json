@@ -1,0 +1,65 @@
+[
+  {
+    "id": "skeleton",
+    "displayName": "Kerangka Gajah",
+    "shortDesc": "Kerangka gajah menunjukkan struktur tulang besar termasuk tulang paha, rusuk, dan tengkorak.",
+    "longDesc": "Kerangka gajah menyediakan penopang bagi tubuh besar gajah. Tengkorak besar mendukung gading dan otak; tulang kaki tebal menahan beban. Studi anatomi dapat menunjukkan area rawan patah, pertumbuhan tulang, dan adaptasi biomekanik.",
+    "modelPath": "assets/models/tulang gajah.gltf",
+    "thumbnail": "assets/ui/thumb_skeleton.png",
+    "anchorOffset": { "x": 0, "y": 0, "z": 0 }
+  },
+  {
+    "id": "body",
+    "displayName": "Tubuh Gajah (Kulit & Otot)",
+    "shortDesc": "Lapisan luar meliputi kulit tebal, otot, dan jaringan lemak.",
+    "longDesc": "Kulit gajah tebal untuk proteksi termal dan fisik; otot-otot besar mendukung gerakan belalai, kaki, dan tubuh. Kulit dan otot bekerja bersama untuk mengatur suhu dan mobilitas.",
+    "modelPath": "assets/models/gajah.gltf",
+    "thumbnail": "assets/ui/thumb_body.png",
+    "anchorOffset": { "x": 0, "y": 0, "z": 0 }
+  },
+  {
+    "id": "tusk",
+    "displayName": "Gading (Tusk)",
+    "shortDesc": "Gading terbuat dari gigi yang membesar (dentin) dan berfungsi untuk menggali dan pertahanan.",
+    "longDesc": "Gading adalah modifikasi gigi seri yang tumbuh terus-menerus. Gading digunakan untuk menggali umbi, membuka tanah, serta interaksi sosial/pertahanan. Kerusakan gading dapat menandakan masalah kesehatan atau perburuan.",
+    "modelPath": "assets/models/tusk.glb",
+    "thumbnail": "assets/ui/thumb_tusk.png",
+    "anchorOffset": { "x": 0.2, "y": 0.6, "z": 0 }
+  },
+  {
+    "id": "trunk",
+    "displayName": "Belalai (Trunk)",
+    "shortDesc": "Belalai adalah organ yang sangat multifungsi — pernapasan, manipulasi, dan indera penciuman.",
+    "longDesc": "Belalai terdiri dari ribuan otot dan dapat melakukan gerakan halus maupun kuat. Belalai juga berfungsi sebagai alat pernapasan, untuk minum, mengambil makanan, dan komunikasi lewat suara.",
+    "modelPath": "assets/models/trunk.glb",
+    "thumbnail": "assets/ui/thumb_trunk.png",
+    "anchorOffset": { "x": 0, "y": 0.4, "z": 0 }
+  },
+  {
+    "id": "heart",
+    "displayName": "Jantung",
+    "shortDesc": "Organ pemompa darah vital.",
+    "longDesc": "Jantung pada mamalia besar berfungsi memompa darah bersirkulasi ke seluruh tubuh. Tekanan dan ukuran jantung beradaptasi terhadap massa tubuh gajah yang besar.",
+    "modelPath": "assets/models/organs/heart.glb",
+    "thumbnail": "assets/ui/thumb_heart.png",
+    "anchorOffset": { "x": -0.2, "y": 0.2, "z": 0 }
+  },
+  {
+    "id": "lungs",
+    "displayName": "Paru-paru",
+    "shortDesc": "Organ pernapasan utama.",
+    "longDesc": "Paru-paru besar pada gajah mendukung kebutuhan oksigen tubuh besar. Alveoli dan struktur pernapasan memiliki adaptasi khusus pada mamalia besar.",
+    "modelPath": "assets/models/organs/lungs.glb",
+    "thumbnail": "assets/ui/thumb_lungs.png",
+    "anchorOffset": { "x": 0, "y": 0.3, "z": 0 }
+  },
+  {
+    "id": "brain",
+    "displayName": "Otak",
+    "shortDesc": "Pusat sistem saraf pusat.",
+    "longDesc": "Otak gajah relatif besar dan kompleks; berperan pada memori, perilaku sosial, dan navigasi. Strukturnya menunjukkan penyesuaian pada fungsi kognitif dan sensori.",
+    "modelPath": "assets/models/organs/brain.glb",
+    "thumbnail": "assets/ui/thumb_brain.png",
+    "anchorOffset": { "x": 0, "y": 0.55, "z": 0 }
+  }
+]
