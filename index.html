@@ -97,25 +97,10 @@
   <a-entity camera></a-entity>
 
   <!-- Marker -->
-  <a-marker type="pattern" url="assets/markers/elephant_marker.patt">
+ <a-marker type="pattern" url="assets/markers/elephant_marker.patt">
+  <a-box position="0 0.5 0" material="color: red;"></a-box>
+</a-marker>
 
-    <!-- Root semua model -->
-    <a-entity id="modelRoot" position="0 0 0" scale="0.5 0.5 0.5">
-
-      <!-- Tubuh -->
-      <a-entity id="layer_body" gltf-model="assets/models/gajah.glb" visible="true"></a-entity>
-
-      <!-- Tulang -->
-      <a-entity id="layer_skeleton" gltf-model="assets/models/tulang_gajah.glb" visible="false"></a-entity>
-
-      <!-- Organ -->
-      <a-entity id="layer_organs" visible="false">
-        <a-entity id="organ_heart" gltf-model="assets/models/jantung.glb" position="0 0.4 0"></a-entity>
-      </a-entity>
-
-    </a-entity>
-
-  </a-marker>
 </a-scene>
 
 
