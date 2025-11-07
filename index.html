@@ -10,6 +10,9 @@
 
   <!-- A-Frame WebXR Hit-Test Component (Wajib untuk Tap-to-Place) -->
   <script src="https://cdn.jsdelivr.net/npm/aframe-hit-test-component@1.0.0/dist/aframe-hit-test-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.1.0/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-ar-hit-test@1.1.0/dist/aframe-ar-hit-test.js"></script>
 
   <style>
     /* Canvas behind UI */
@@ -97,9 +100,14 @@
   <a-entity camera></a-entity>
 
   <!-- Reticle -->
-  <a-entity id="reticle" hit-test="target:#modelRoot" visible="false">
-    <a-ring color="#00FFAA" radius-inner="0.03" radius-outer="0.05" rotation="-90 0 0"></a-ring>
+  <a-entity id="reticle"
+    hit-test="target:#modelRoot; type:placement;"
+    geometry="primitive: ring; radiusInner: 0.05; radiusOuter: 0.07;"
+    material="color: #00FFAA; shader: flat;"
+    rotation="-90 0 0"
+    visible="false">
   </a-entity>
+
 
   <!-- Model container -->
   <a-entity id="modelRoot" visible="false">
